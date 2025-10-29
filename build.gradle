@@ -1,15 +1,8 @@
-buildscript {
-    dependencies {
-        classpath('net.serenity-bdd:serenity-gradle-plugin:4.2.8')
-    }
-}
-
 plugins {
     id 'java'
     id 'io.qameta.allure' version '2.9.3'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '2.4.34'
 }
-
-apply plugin: "net.serenity-bdd.serenity-gradle-plugin"
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -19,33 +12,45 @@ repositories {
 }
 
 ext {
-    allureVersion = '2.29.0'
+    allureVersion = '2.13.9' // compatible con Java 8
     junitVersion = '5.11.3'
 }
 
-sourceCompatibility = '8'
-targetCompatibility = '8'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
 dependencies {
-    testImplementation('com.codeborne:selenide:7.6.0')
-    testImplementation("io.qameta.allure:allure-selenide:${allureVersion}")
-    testImplementation('net.serenity-bdd:serenity-core:4.2.8')
-    testImplementation('net.serenity-bdd:serenity-junit:4.2.8')
-    testImplementation('org.assertj:assertj-core:3.26.3')
-    testImplementation('org.slf4j:slf4j-simple:2.0.16')
+    // Selenide compatible con Selenium 3.141.59 y Java 8
+    testImplementation('com.codeborne:selenide:5.25.0')
 
+    // Allure compatible con Java 8
+    testImplementation("io.qameta.allure:allure-selenide:${allureVersion}")
+
+    // Serenity compatible con Java 8
+    testImplementation('net.serenity-bdd:serenity-core:2.4.34')
+    testImplementation('net.serenity-bdd:serenity-junit:2.4.34')
+
+    // Utilidades compatibles con Java 8
+    testImplementation('org.assertj:assertj-core:3.19.0')
+    testImplementation('org.slf4j:slf4j-simple:1.7.36')
+
+    // JUnit 5
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
     testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${junitVersion}")
+
+    // WebDriverManager para manejar drivers automáticamente
+    testImplementation('io.github.bonigarcia:webdrivermanager:5.6.1')
 }
 
 test {
     useJUnitPlatform()
 }
+
 allure {
     autoconfigure = true
     version = "${allureVersion}"
