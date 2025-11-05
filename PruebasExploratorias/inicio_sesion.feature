@@ -1,12 +1,7 @@
-# Created by LisethElianaOsorioRe at 29/10/2025
-
-# Enter feature name here
-Feature: Registro persona natural
-  # Enter feature description here
-  Como usuario que ingresa a la pagina deseo verificar el modulo de registro de persona natural y realizar el registro exitoso
+Feature: Navegación desde inicio de sesión a registro
 
 
-  ##Flujo del caso, se ingresa a la pagina, primer pantalla es de inicio de sesion, se da clic en "Registrate",
+ ##Flujo del caso, se ingresa a la pagina, primer pantalla es de inicio de sesion, se da clic en "Registrate",
   # se abre nueva pantalla con bienvenida, graficos, boton cancelar y opcion de seleccionar tipo de persona natural o juridica,
   # al final de la pagina se encuentra boton para iniciar sesion y regresar a la pantalla anterior.
   # se selecciona tipo de persona, PARA PERSONA NATURAL  se abre pantalla de creacion de cuenta con boton de cancelar
@@ -18,11 +13,18 @@ Feature: Registro persona natural
   #se muestr ventana pop up de confirmacion de datos con cedula y correo opciones para modificar y confirmar
   # segundo paso es de verificacion de identidad por medio de envio de codigo al telefono registrado,
   # con opcion de modificar el numero ingresado, no recibiste le codigo y reenviar despues de 59 segundos
-  ##
-  # Enter scenario name here
-  Scenario:
-    # Enter steps here
-  Given Yo como usuario ingreso a la pagina de registro de persona natural
-  When Diligencio el formulario con datos validos
-  And Envio el formulario de registro
-  Then Visualizo el mensaje de registro exitoso
+
+
+Scenario: Usuario accede a la pantalla de registro desde la pantalla de inicio de sesión
+  Given el usuario está en la pantalla de inicio de sesión
+  When hace clic en el botón "Regístrate"
+  Then se muestra la pantalla de bienvenida con gráficos, botón cancelar, selector de tipo de persona y botón para regresar
+
+
+
+Feature: Acceso al portal institucional Davivienda
+
+Scenario: Usuario accede al portal Davivienda desde la pantalla de inicio
+  Given el usuario está en la pantalla de inicio
+  When hace clic en el logo o enlace de Davivienda
+  Then se redirige al portal institucional en una nueva pestaña
